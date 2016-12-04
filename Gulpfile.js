@@ -6,7 +6,8 @@ var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     jshint = require('gulp-jshint'),
     rename = require('gulp-rename'),
-    browserSync = require('browser-sync');
+    browserSync = require('browser-sync'),
+    nodemon = require('gulp-nodemon');
 
 var reload = browserSync.reload;
 
@@ -47,7 +48,7 @@ gulp.task('scripts',function(){
 /*======================================
             Browser Sync Task
 =======================================*/
-gulp.task('browser-sync', function() {
+gulp.task('browser-sync', ['nodemon'], function() {
     browserSync.init(null, {
         proxy: "localhost:8787",
         port: 8777,
@@ -56,6 +57,32 @@ gulp.task('browser-sync', function() {
 });
 gulp.task('bs-reload', function () {
     browserSync.reload();
+});
+
+
+/*======================================
+            Nodemon Task
+=======================================*/
+gulp.task('nodemon', function (cb) {
+  var called = false;
+  return nodemon({
+    script: 'server.js',
+    ignore: [
+      'Gulpfile.js',
+      'node_modules/'
+    ]
+  })
+  .on('start', function () {
+    if (!called) {
+      called = true;
+      cb();
+    }
+  })
+  .on('restart', function () {
+    setTimeout(function () {
+      reload({ stream: false });
+  }, 500);
+  });
 });
 
 
