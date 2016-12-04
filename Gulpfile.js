@@ -5,7 +5,10 @@ var gulp = require('gulp'),
     cssnano = require('gulp-cssnano'),
     uglify = require('gulp-uglify'),
     jshint = require('gulp-jshint'),
-    rename = require('gulp-rename');
+    rename = require('gulp-rename'),
+    browserSync = require('browser-sync');
+
+var reload = browserSync.reload;
 
 
 /*======================================
@@ -18,7 +21,8 @@ gulp.task('styles', function () {
         .pipe(gulp.dest('app/assets/css'))
         .pipe(cssnano())
         .pipe(rename({ suffix: '.min' }))
-        .pipe(gulp.dest('app/assets/css'));
+        .pipe(gulp.dest('app/assets/css'))
+        .pipe(browserSync.reload({stream:true}));
 });
 
 
@@ -35,14 +39,31 @@ gulp.task('scripts',function(){
     }))
     .pipe(uglify())
     .pipe(rename({ suffix: '.min' }))
-    .pipe(gulp.dest('app/assets/js'));
+    .pipe(gulp.dest('app/assets/js'))
+    .pipe(browserSync.reload({stream:true, once: true}));
+});
+
+
+/*======================================
+            Browser Sync Task
+=======================================*/
+gulp.task('browser-sync', function() {
+    browserSync.init(null, {
+        proxy: "localhost:8787",
+        port: 8777,
+        notify: true
+    });
+});
+gulp.task('bs-reload', function () {
+    browserSync.reload();
 });
 
 
 /*======================================
             Default Gulp Task
 =======================================*/
-gulp.task('default', ['styles', 'scripts'], function () {
+gulp.task('default', ['styles', 'scripts', 'browser-sync'], function () {
     gulp.watch("src/scss/*/*.scss", ['styles']);
     gulp.watch("src/js/*.js", ['scripts']);
+    gulp.watch("app/*.html", ['bs-reload']);
 });
