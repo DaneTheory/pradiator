@@ -2,16 +2,15 @@ var express = require('express');
 var serveStatic = require('serve-static');
 const rp = require('request-promise');
 const Promise = require('bluebird');
-var app = express();
 
+var config = require('./config.json');  // read in the config file
+
+var app = express();
 var DEFAULT_PORT = 8787;
 
 
 // serve static files from the "app" dir
 app.use(serveStatic(__dirname + '/app'));
-
-// read in the config file
-var config = require('./config.json');
 
 if ((!config.accessToken) || (config.accessToken === '')) {
     throw new Error('No "accessToken" supplied in config.json!');
@@ -45,6 +44,4 @@ function getPullRequestsFromGithub(acc, repository) {
     return acc;
 }
 
-app.listen(port, function() {
-    console.log('pradiator server started at http://localhost:' + port + '/');
-});
+app.listen(port);
