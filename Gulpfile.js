@@ -1,8 +1,10 @@
 var gulp = require('gulp'),
     sass = require('gulp-sass'),
     autoprefixer = require('gulp-autoprefixer'),
-    rename = require('gulp-rename'),
-    cssnano = require('gulp-cssnano');
+    cssnano = require('gulp-cssnano'),
+    uglify = require('gulp-uglify'),
+    jshint = require('gulp-jshint'),
+    rename = require('gulp-rename');
 
 
 /*======================================
@@ -18,9 +20,24 @@ gulp.task('styles', function () {
         .pipe(gulp.dest('app/assets/css'));
 });
 
+
+/*======================================
+            Scripts Task
+=======================================*/
+gulp.task('scripts',function(){
+  gulp.src('')
+    .pipe(jshint('.jshintrc'))
+    .pipe(jshint.reporter('default'))
+    .pipe(gulp.dest(''))
+    .pipe(uglify())
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(gulp.dest(''));
+});
+
+
 /*======================================
             Default Gulp Task
 =======================================*/
-gulp.task('default', ['styles'], function () {
+gulp.task('default', ['styles', 'scripts'], function () {
     gulp.watch("src/scss/*/*.scss", ['styles']);
 });
