@@ -1,0 +1,39 @@
+//----------------------------------*\
+// MODULES
+//----------------------------------*/
+
+// Vendor modules
+@import 'modules/clearfix';
+@import 'modules/normalize';
+
+// Provider modules
+@import 'modules/print';
+
+// Basic modules
+@import 'modules/variables';
+@import 'modules/animations';
+
+// Enhancement modules
+@import 'modules/actions';
+
+// Dynamic content modules
+@import 'modules/dynamic';
+
+
+//----------------------------------*\
+// BASE
+//----------------------------------*/
+
+// Default styles
+@import 'base/global';
+
+
+//----------------------------------*\
+// PARTIALS
+//----------------------------------*/
+
+// Header styles
+@import 'partials/header';
+
+// Main styles
+@import 'partials/main';

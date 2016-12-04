@@ -1,0 +1,23 @@
+html {
+  font-size: 62.5%;
+}
+
+body {
+  background-color: $background-color;
+  color: $white;
+  font-family: 'Ubuntu', sans-serif;
+  margin: 0;
+  transition: all .4s .3s ease-in;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1 {
+  margin: 0;
+}

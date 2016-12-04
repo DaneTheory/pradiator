@@ -1,13 +1,14 @@
 var express = require('express');
+var serveStatic = require('serve-static');
 const rp = require('request-promise');
 const Promise = require('bluebird');
+var app = express();
 
 var DEFAULT_PORT = 8787;
 
-var app = express();
 
-// serve static files from the "public" dir
-app.use(express.static('public'));
+// serve static files from the "app" dir
+app.use(serveStatic(__dirname + '/app'));
 
 // read in the config file
 var config = require('./config.json');
@@ -37,7 +38,7 @@ function getPullRequestsFromGithub(acc, repository) {
             'User-Agent': 'PRadiator app', // https://developer.github.com/v3/#user-agent-required
             'Accept': 'application/vnd.github.v3+json'
         },
-        json: true,
+        json: true
     };
 
     acc[repository] = rp(options);

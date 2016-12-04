@@ -9,18 +9,18 @@ var gulp = require('gulp'),
             Styles Task
 =======================================*/
 gulp.task('styles', function () {
-    return gulp.src('')
+    return gulp.src('src/scss/style.scss')
         .pipe(sass({errLogToConsole: true}))
         .pipe(autoprefixer('last 4 version'))
-        .pipe(gulp.dest(''))
+        .pipe(gulp.dest('app/assets/css'))
         .pipe(cssnano())
         .pipe(rename({ suffix: '.min' }))
-        .pipe(gulp.dest(''));
+        .pipe(gulp.dest('app/assets/css'));
 });
 
 /*======================================
             Default Gulp Task
 =======================================*/
 gulp.task('default', ['styles'], function () {
-    console.log('Gulp Default Task Is Running!');
+    gulp.watch("src/scss/*/*.scss", ['styles']);
 });

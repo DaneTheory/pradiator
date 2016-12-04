@@ -1,0 +1,14 @@
+.highlight {
+  color: $highlight;
+}
+
+.spinning {
+  animation-duration: 1500ms;
+  animation-iteration-count: infinite;
+  animation-name: spin;
+  animation-timing-function: linear;
+}
+
+.outdated {
+  background-color: $outdated;
+}
